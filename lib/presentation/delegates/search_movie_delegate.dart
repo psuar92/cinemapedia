@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cinemapedia/config/helpers/human_formats.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
@@ -20,7 +19,7 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
     required this.searchMovies,
     required this.initialMovies,
   }) : super(
-          searchFieldLabel: 'Buscar películas',
+          searchFieldLabel: 'Search movies',
           // textInputAction: TextInputAction.done
         );
 
@@ -34,11 +33,6 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
     if (_debounceTimer?.isActive ?? false) _debounceTimer!.cancel();
 
     _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
-      // if ( query.isEmpty ) {
-      //   debouncedMovies.add([]);
-      //   return;
-      // }
-
       final movies = await searchMovies(query);
       initialMovies = movies;
       debouncedMovies.add(movies);
@@ -66,9 +60,6 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
       },
     );
   }
-
-  // @override
-  // String get searchFieldLabel => 'Buscar película';
 
   @override
   List<Widget>? buildActions(BuildContext context) {

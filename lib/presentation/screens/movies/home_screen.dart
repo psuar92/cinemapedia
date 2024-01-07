@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
   final viewRoutes = const <Widget>[
     HomeView(),
     CategoriesView(),
-    CategoriesView(),
+    FavoritesView(),
   ];
 
   @override
@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
         index: pageIndex,
         children: viewRoutes,
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(),
+      bottomNavigationBar: CustomBottomNavigationBar(currentIndex: pageIndex),
     );
   }
 }
