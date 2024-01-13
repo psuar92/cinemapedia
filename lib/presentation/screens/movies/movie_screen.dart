@@ -197,38 +197,41 @@ class _CustomSliverAppbar extends ConsumerWidget {
 
     final size = MediaQuery.of(context).size;
 
+    final scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
+
     return SliverAppBar(
       backgroundColor: Colors.black,
       expandedHeight: size.height * 0.7,
       foregroundColor: Colors.white,
       actions: [
         IconButton(
-            onPressed: () async {
-              await ref
-                  .read(favoriteMoviesProvider.notifier)
-                  .toggleFavorite(movie);
+          onPressed: () async {
+            await ref
+                .read(favoriteMoviesProvider.notifier)
+                .toggleFavorite(movie);
 
-              ref.invalidate(isFavoriteProvider(movie.id));
-            },
-            icon: isFavoriteFuture.when(
-              loading: () => const CircularProgressIndicator(strokeWidth: 2),
-              data: (isFavorite) => isFavorite
-                  ? const Icon(Icons.favorite_rounded, color: Colors.red)
-                  : const Icon(Icons.favorite_border),
-              error: (_, __) => throw UnimplementedError(),
-            )
-            //  const Icon(Icons.favorite_rounded, color: Colors.red)
-            //  const Icon(Icons.favorite_border),
-            )
+            ref.invalidate(isFavoriteProvider(movie.id));
+          },
+          icon: isFavoriteFuture.when(
+            loading: () => const CircularProgressIndicator(strokeWidth: 2),
+            data: (isFavorite) => isFavorite
+                ? const Icon(Icons.favorite_rounded, color: Colors.red)
+                : const Icon(Icons.favorite_border),
+            error: (_, __) => throw UnimplementedError(),
+          ),
+        ),
       ],
       flexibleSpace: FlexibleSpaceBar(
-        centerTitle: true,
-        titlePadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        // title: Text(
-        //   movie.title,
-        //   style: const TextStyle(fontSize: 20),
-        //   textAlign: TextAlign.start,
-        // ),
+        titlePadding: const EdgeInsets.only(bottom: 0),
+        title: _CustomGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          stops: const [0.7, 1.0],
+          colors: [
+            Colors.transparent,
+            scaffoldBackgroundColor,
+          ],
+        ),
         background: Stack(
           children: [
             SizedBox.expand(
@@ -245,18 +248,27 @@ class _CustomSliverAppbar extends ConsumerWidget {
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
               stops: [0.0, 0.2],
-              colors: [Colors.black54, Colors.transparent],
+              colors: [
+                Colors.black54,
+                Colors.transparent,
+              ],
             ),
             const _CustomGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               stops: [0.8, 1.0],
-              colors: [Colors.transparent, Colors.black54],
+              colors: [
+                Colors.transparent,
+                Colors.black54,
+              ],
             ),
             const _CustomGradient(
               begin: Alignment.topLeft,
               stops: [0.0, 0.3],
-              colors: [Colors.black54, Colors.transparent],
+              colors: [
+                Colors.black54,
+                Colors.transparent,
+              ],
             ),
           ],
         ),
@@ -266,7 +278,6 @@ class _CustomSliverAppbar extends ConsumerWidget {
 }
 
 class _CustomGradient extends StatelessWidget {
-  // begin, end, stops, colors
   final AlignmentGeometry begin;
   final AlignmentGeometry end;
   final List<double> stops;
