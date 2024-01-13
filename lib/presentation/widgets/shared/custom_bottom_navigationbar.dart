@@ -25,8 +25,11 @@ class CustomBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return BottomNavigationBar(
       elevation: 0,
+      selectedItemColor: colors.primary,
       currentIndex: currentIndex,
       onTap: (index) => onItemTapped(context, index),
       items: const [
@@ -35,8 +38,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
           label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.label_outline),
-          label: 'Categories',
+          icon: Icon(Icons.thumbs_up_down_outlined),
+          label: 'Popular',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.favorite_outline),
