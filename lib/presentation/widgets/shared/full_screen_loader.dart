@@ -12,7 +12,7 @@ class FullScreenLoader extends StatelessWidget {
       'About to begin',
       'This is taking longer than expected :(',
     ];
-    return Stream.periodic(const Duration(seconds: 3), (step) {
+    return Stream.periodic(const Duration(seconds: 5), (step) {
       return messages[step];
     }).take(messages.length);
   }
@@ -23,14 +23,14 @@ class FullScreenLoader extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text('Wait...'),
           const SizedBox(height: 10),
           const CircularProgressIndicator(strokeWidth: 2),
           const SizedBox(height: 10),
+          const Text('Cinemapedia'),
           StreamBuilder(
             stream: getLoadingMessages(),
             builder: (context, snapshot) {
-              if (!snapshot.hasData) return const Text('Cargando...');
+              if (!snapshot.hasData) return const Text('Loading...');
 
               return Text(snapshot.data!);
             },
